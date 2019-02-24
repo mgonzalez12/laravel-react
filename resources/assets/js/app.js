@@ -18,3 +18,4 @@ window.axios = require('axios');
 
 require('./components/User.js');
 require('./components/Create.js');
+require('./components/Edit.js');

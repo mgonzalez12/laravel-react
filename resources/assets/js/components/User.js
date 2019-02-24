@@ -21,23 +21,7 @@ export default class User extends Component{
 		}) 
 	}
 
-	deleteUser(user){
-		console.log(user);
-
-		var $this = this
-		axios.delete('/api/users/'+user.id).then(response=>{
-			console.log(response)
-
-			const newState = $this.state.data.slice();
-			newState.splice(newState.indexOf(user),l)
-			$this.setState({
-				data:newState
-			})
-		}).catch(error => {
-			console.log(error)
-		})
-
-	}
+	
 	render(){
 		return(
 			<div> 
@@ -55,15 +39,7 @@ export default class User extends Component{
 				  </thead>
 				  <tbody>
 				   { this.state.data.map((user, i)=>(
-				   		<tr>
-						    <th scope="row">{user.id}</th>
-						      <td>{user.name}</td>
-						      <td>{user.email}</td>
-						      <td>
-						      <a href="" className="btn btn-primary">edit</a>
-						      <a href="" className="btn btn-danger" onClick={this.deleteUser.bind(this,user)} >delete</a>
-						      </td>
-						</tr>
+				   		<UserRow key={i} i={i} user={user} object={this} />
 				   	)
 				   )}
 				   
@@ -75,6 +51,42 @@ export default class User extends Component{
 	}
 }
 
+
+ class UserRow extends Component{
+ 	deleteUser(user,object){
+		console.log(user);
+
+		var $this = object
+		axios.delete('/api/users/'+user.id).then(response=>{
+			console.log(response)
+
+			const newState = $this.state.data.slice();
+			newState.splice(newState.indexOf(user),l)
+			$this.setState({
+				data:newState
+			})
+		}).catch(error => {
+			console.log(error)
+		})
+
+	}
+		render(){
+			return(
+				
+		<tr>
+			<th scope="row">{this.props.user.id}</th>
+			<td>{this.props.user.name}</td>
+			<td>{this.props.user.email}</td>
+			<td>
+				<a href={"/users/"+this.props.user.id+"/edit"} className="btn btn-primary">edit</a>
+				<a href="javascript:;" className="btn btn-danger"  onClick={this.deleteUser.bind(this,this.props.user, this.props.object)}>delete</a>
+			</td>
+		</tr>
+
+		
+		)
+	}
+}
 
 if (document.getElementById('app')) {
     ReactDOM.render(<User />, document.getElementById('app'));

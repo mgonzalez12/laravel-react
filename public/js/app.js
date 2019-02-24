@@ -14035,6 +14035,7 @@ window.axios = __webpack_require__(6);
 
 __webpack_require__(48);
 __webpack_require__(54);
+__webpack_require__(55);
 
 /***/ }),
 /* 17 */
@@ -60976,24 +60977,6 @@ var User = function (_Component) {
 			});
 		}
 	}, {
-		key: 'deleteUser',
-		value: function deleteUser(user) {
-			console.log(user);
-
-			var $this = this;
-			axios.delete('/api/users/' + user.id).then(function (response) {
-				console.log(response);
-
-				var newState = $this.state.data.slice();
-				newState.splice(newState.indexOf(user), l);
-				$this.setState({
-					data: newState
-				});
-			}).catch(function (error) {
-				console.log(error);
-			});
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -61046,39 +61029,7 @@ var User = function (_Component) {
 						'tbody',
 						null,
 						this.state.data.map(function (user, i) {
-							return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-								'tr',
-								null,
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'th',
-									{ scope: 'row' },
-									user.id
-								),
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'td',
-									null,
-									user.name
-								),
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'td',
-									null,
-									user.email
-								),
-								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-									'td',
-									null,
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-										'a',
-										{ href: '', className: 'btn btn-primary' },
-										'edit'
-									),
-									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-										'a',
-										{ href: '', className: 'btn btn-danger', onClick: _this2.deleteUser.bind(_this2, user) },
-										'delete'
-									)
-								)
-							);
+							return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(UserRow, { key: i, i: i, user: user, object: _this2 });
 						})
 					)
 				)
@@ -61091,6 +61042,74 @@ var User = function (_Component) {
 
 /* harmony default export */ __webpack_exports__["default"] = (User);
 
+var UserRow = function (_Component2) {
+	_inherits(UserRow, _Component2);
+
+	function UserRow() {
+		_classCallCheck(this, UserRow);
+
+		return _possibleConstructorReturn(this, (UserRow.__proto__ || Object.getPrototypeOf(UserRow)).apply(this, arguments));
+	}
+
+	_createClass(UserRow, [{
+		key: 'deleteUser',
+		value: function deleteUser(user, object) {
+			console.log(user);
+
+			var $this = object;
+			axios.delete('/api/users/' + user.id).then(function (response) {
+				console.log(response);
+
+				var newState = $this.state.data.slice();
+				newState.splice(newState.indexOf(user), l);
+				$this.setState({
+					data: newState
+				});
+			}).catch(function (error) {
+				console.log(error);
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'tr',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'th',
+					{ scope: 'row' },
+					this.props.user.id
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'td',
+					null,
+					this.props.user.name
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'td',
+					null,
+					this.props.user.email
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'td',
+					null,
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'a',
+						{ href: "/users/" + this.props.user.id + "/edit", className: 'btn btn-primary' },
+						'edit'
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'a',
+						{ href: 'javascript:;', className: 'btn btn-danger', onClick: this.deleteUser.bind(this, this.props.user, this.props.object) },
+						'delete'
+					)
+				)
+			);
+		}
+	}]);
+
+	return UserRow;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 if (document.getElementById('app')) {
 	__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(User, null), document.getElementById('app'));
@@ -61258,6 +61277,181 @@ var Create = function (_Component) {
 
 if (document.getElementById('create')) {
 	__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Create, null), document.getElementById('create'));
+}
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var Edit = function (_Component) {
+	_inherits(Edit, _Component);
+
+	function Edit() {
+		_classCallCheck(this, Edit);
+
+		var _this = _possibleConstructorReturn(this, (Edit.__proto__ || Object.getPrototypeOf(Edit)).call(this));
+
+		_this.state = {
+			name: '',
+			email: '',
+			password: ''
+		};
+		return _this;
+	}
+
+	_createClass(Edit, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			var _this2 = this;
+
+			var id = this.props.id;
+
+			axios.get('/api/users/' + id).then(function (response) {
+				var user = response.data;
+
+				_this2.setState({
+					name: user.name,
+					email: user.email
+				});
+
+				console.log(response.data);
+			}).catch(function (error) {
+				console.log(error);
+			});
+		}
+	}, {
+		key: 'handleNameChange',
+		value: function handleNameChange(e) {
+			this.setState({
+				name: e.target.value
+			});
+		}
+	}, {
+		key: 'handleEmailChange',
+		value: function handleEmailChange(e) {
+			this.setState({
+				email: e.target.value
+			});
+		}
+	}, {
+		key: 'handlePasswordChange',
+		value: function handlePasswordChange(e) {
+			this.setState({
+				password: e.target.value
+			});
+		}
+	}, {
+		key: 'handleSubmit',
+		value: function handleSubmit(e) {
+			e.preventDefault();
+			console.log(this.state);
+
+			axios.post('/api/users', this.state).then(function (response) {
+				console.log(response);
+			}).then(function (error) {
+				console.log(error);
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				null,
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'h2',
+					null,
+					'Add New User'
+				),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'form',
+					{ className: 'form-horizontal', onSubmit: this.handleSubmit.bind(this) },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'form-group' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'label',
+							{ className: 'col-md-4 control-label' },
+							'Name'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'col-md-6' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { id: 'name', type: 'text', className: 'form-control', name: 'name', value: this.state.name, onChange: this.handleNameChange.bind(this) })
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'form-group' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'label',
+							{ className: 'col-md-4 control-label' },
+							'E-Mail Address'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'col-md-6' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { id: 'email', type: 'email', className: 'form-control', name: 'email', value: this.state.email, onChange: this.handleEmailChange.bind(this) })
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'form-group{' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'label',
+							{ className: 'col-md-4 control-label' },
+							'Password'
+						),
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'col-md-6' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { id: 'password', type: 'password', className: 'form-control', name: 'password', value: this.state.password, onChange: this.handlePasswordChange.bind(this) })
+						)
+					),
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'div',
+						{ className: 'form-group' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+							'div',
+							{ className: 'col-md-6 col-md-offset-4' },
+							__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+								'button',
+								{ type: 'submit', className: 'btn btn-primary' },
+								'Edit'
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return Edit;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (Edit);
+
+
+if (document.getElementById('edit')) {
+	var id = $("#edit").data("id");
+	__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Edit, { id: id }), document.getElementById('edit'));
 }
 
 /***/ })
